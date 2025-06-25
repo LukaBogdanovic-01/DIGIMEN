@@ -5,8 +5,8 @@
     'depends': ['project', 'base', 'mail', 'hr', 'auth_signup', 'web'],
     'data': [
         'security/security.xml',
-        'security/demo_users.xml',
         'security/ir.model.access.csv',
+        'security/demo_users.xml',
         'views/universal_request_views.xml',
         'views/request_type_views.xml',
         'views/universal_request_menus.xml',
