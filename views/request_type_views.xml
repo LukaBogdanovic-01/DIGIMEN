@@ -1,0 +1,52 @@
+<odoo>
+    <!-- TREE VIEW -->
+    <record id="view_request_type_tree" model="ir.ui.view">
+        <field name="name">request.type.tree</field>
+        <field name="model">request.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="allowed_group_ids"/>
+                <field name="default_priority"/>
+                <field name="default_assigned_user_id"/>
+                <field name="estimated_duration_days"/>
+                <field name="requires_signature"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="view_request_type_form" model="ir.ui.view">
+        <field name="name">request.type.form</field>
+        <field name="model">request.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="allowed_group_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Podrazumijevane vrijednosti">
+                        <field name="default_description"/>
+                        <field name="default_priority"/>
+                        <field name="default_assigned_user_id"/>
+                        <field name="estimated_duration_days"/>
+                        <field name="requires_signature"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_request_type" model="ir.actions.act_window">
+        <field name="name">Šabloni zahtjeva</field>
+        <field name="res_model">request.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Kreirajte unaprijed definisane tipove zahtjeva koji automatski popunjavaju polja kod kreiranja novog zadatka.
+            </p>
+        </field>
+    </record>
+</odoo>

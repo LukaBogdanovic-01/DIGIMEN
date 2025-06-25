@@ -1,0 +1,20 @@
+.status-badge {
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #fff;
+    display: inline-block;
+}
+
+.status-badge.draft {
+    background-color: #6c757d; /* sivo */
+}
+.status-badge.approved {
+    background-color: #17a2b8; /* plavo */
+}
+.status-badge.done {
+    background-color: #28a745; /* zeleno */
+}
+.status-badge.rejected {
+    background-color: #dc3545; /* crveno */
+}

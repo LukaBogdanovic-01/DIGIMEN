@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <record id="user_director" model="res.users">
+            <field name="name">Demo Direktor</field>
+            <field name="login">director@example.com</field>
+            <field name="password">director123</field>
+            <field name="groups_id" eval="[
+                (4, ref('base.group_user')),
+                (4, ref('universal_request_manager.group_director'))
+            ]"/>
+        </record>
+
+        <record id="user_manager" model="res.users">
+            <field name="name">Demo Menadžer</field>
+            <field name="login">manager@example.com</field>
+            <field name="password">manager123</field>
+            <field name="groups_id" eval="[
+                (4, ref('base.group_user')),
+                (4, ref('universal_request_manager.group_manager'))
+            ]"/>
+        </record>
+
+        <record id="user_team" model="res.users">
+            <field name="name">Demo Timski Član</field>
+            <field name="login">team@example.com</field>
+            <field name="password">team123</field>
+            <field name="groups_id" eval="[
+                (4, ref('base.group_user')),
+                (4, ref('universal_request_manager.group_team'))
+            ]"/>
+        </record>
+    </data>
+</odoo>
+
