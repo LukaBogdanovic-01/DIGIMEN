@@ -28,10 +28,9 @@ class UniversalRequest(models.Model):
     template_assigned_user = fields.Char(compute='_compute_template_values', string="Izvršilac (šablon)")
 
     project_id = fields.Many2one('project.project', string="Projekat")
-    goals = fields.Text(string="Ciljevi")
+    goals_id = fields.Many2one('code.book', string="Ciljevi")
     attachment_file = fields.Binary(string="Dokument")
     attachment_filename = fields.Char(string="Naziv fajla")
-    codebook_id = fields.Many2one('code.book', string="Šifra iz šifarnika")
 
 
 

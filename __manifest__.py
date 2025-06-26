@@ -9,6 +9,7 @@
         'security/demo_users.xml',
         'views/universal_request_views.xml',
         'views/request_type_views.xml',
+        'views/code_book_data.xml',
         'views/universal_request_menus.xml',
 
     ],

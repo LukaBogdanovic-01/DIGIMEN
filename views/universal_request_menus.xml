@@ -2,4 +2,5 @@
     <menuitem id="menu_universal_request_root" name="DIGIMEN" sequence="10"/>
     <menuitem id="menu_universal_request" name="Zahtjevi" parent="menu_universal_request_root" action="action_universal_request"/>
     <menuitem id="menu_request_type" name="Šabloni zahtjeva" parent="menu_universal_request_root" action="action_request_type"/>
+    <menuitem id="menu_request_code" name="Šifarnik" parent="menu_universal_request_root" action="action_code_book"/>
 </odoo>
