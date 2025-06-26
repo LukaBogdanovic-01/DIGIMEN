@@ -4,6 +4,9 @@ access_universal_request,access_universal_request,model_universal_request,base.g
 access_request_admin,access.request.admin,model_universal_request,base.group_system,1,1,1,1
 access_request_type_admin,access.request.type.admin,model_request_type,base.group_system,1,1,1,1
 access_code_book_admin,access.code.book.admin,model_code_book,base.group_system,1,1,1,1
+access_code_book_proces_admin,access.code.book.proces.admin,model_code_book_proces,base.group_system,1,1,1,1
+access_project_tag_admin,access.project.tag.admin,model_project_tag,base.group_system,1,1,1,1
+
 
 access_request_type_director,access.request.type.director,model_request_type,universal_request_manager.group_director,1,1,1,1
 access_request_type_manager,access.request.type.manager,model_request_type,universal_request_manager.group_manager,1,1,1,1
@@ -15,7 +18,14 @@ access_request_manager,access_request_manager,model_universal_request,universal_
 access_request_team,access_request_team,model_universal_request,universal_request_manager.group_team,1,0,1,0
 
 
-
 access_code_book_team,access.code.book.team,model_code_book,universal_request_manager.group_team,1,0,0,0
 access_code_book_manager,access.code.book.manager,model_code_book,universal_request_manager.group_manager,1,1,1,0
 access_code_book_director,access.code.book.director,model_code_book,universal_request_manager.group_director,1,1,1,1
+
+access_code_book_proces_team,access.code.book.proces.team,model_code_book_proces,universal_request_manager.group_team,1,0,0,0
+access_code_book_proces_manager,access.code.book.proces.manager,model_code_book_proces,universal_request_manager.group_manager,1,1,1,0
+access_code_book_proces_director,access.code.book.proces.director,model_code_book_proces,universal_request_manager.group_director,1,1,1,1
+
+access_project_tag_team,access.project.tag.team,model_project_tag,universal_request_manager.group_team,1,0,0,0
+access_project_tag_manager,access.project.tag.manager,model_project_tag,universal_request_manager.group_manager,1,1,1,0
+access_project_tag_director,access.project.tag.director,model_project_tag,universal_request_manager.group_director,1,1,1,1

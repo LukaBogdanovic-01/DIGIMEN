@@ -6,13 +6,11 @@ class UniversalRequest(models.Model):
     _description = 'Univerzalni poslovni zahtjev'
 
     name = fields.Char(string="Naziv zadatka", required=True)
-    description = fields.Text(string="Opis")
-    status = fields.Selection([
-        ('draft', 'Kreiran'),
-        ('approved', 'Odobren'),
-        ('done', 'Završen'),
-        ('rejected', 'Odbijen')
-    ], string="Status", default='draft')
+    description = fields.Html(string="Opis")
+    description_text = fields.Text(compute='_compute_description_text', store=True)
+    proces = fields.Many2one('code.book.proces', string="Proces")
+    tag_ids = fields.Many2many('project.tag', string="Tagovi")
+    status_sequence = fields.Integer(compute="_compute_status_sequence", store=True)
     priority = fields.Selection([
         ('low', 'Low'),
         ('medium', 'Medium'),
@@ -34,7 +32,10 @@ class UniversalRequest(models.Model):
 
 
 
-
+    @api.depends('description')
+    def _compute_description_text(self):
+        for rec in self:
+            rec.description_text = rec.description and rec.description.replace('<br>', '\n').replace('<p>', '').replace('</p>', '') or ''
 
     @api.depends('request_type_id')
     def _compute_template_values(self):
@@ -64,11 +65,12 @@ class UniversalRequest(models.Model):
 
     def action_done(self):
         self._check_group('universal_request_manager.group_director')
-        self.status = 'done'
+        self.status = 'archived'
 
     def action_reject(self):
         self._check_group('universal_request_manager.group_director')
         self.status = 'rejected'
+
 
 
     @api.constrains('request_type_id')
@@ -80,6 +82,40 @@ class UniversalRequest(models.Model):
                 raise ValidationError("Nemate pravo da koristite ovu vrstu zahtjeva.")
             
 
+    @api.depends('status')
+    def _compute_status_sequence(self):
+        order_map = {
+            'inbox': 0,
+            'submitted': 1,
+            'approval': 2,
+            'approved': 3,
+            'rejected': 4,
+            'archived': 5,
+        }
+        for rec in self:
+            rec.status_sequence = order_map.get(rec.status, 99)
+
+    @api.model
+    def _get_all_statuses(self):
+        return [
+            ('inbox', 'Inbox'),
+            ('submitted', 'Podnešen'),
+            ('approval', 'Odobravanje'),
+            ('approved', 'Odobren'),
+            ('rejected', 'Odbijen'),
+            ('archived', 'Arhiviran'),
+        ]
+
+    status = fields.Selection(
+        selection=_get_all_statuses,
+        string="Status",
+        default='inbox',
+        group_expand='_expand_status'
+    )
+
+    @api.model
+    def _expand_status(self, states, domain, order):
+        return [key for key, label in self._get_all_statuses()]
 
 
 
@@ -126,10 +162,22 @@ class RequestType(models.Model):
 
 class CodeBook(models.Model):
     _name = 'code.book'
-    _description = 'Šifarnik'
+    _description = 'Šifarnik za Ciljeve'
 
     name = fields.Char(string="Naziv šifre", required=True)
 
+
+class CodeBook(models.Model):
+    _name = 'code.book.proces'
+    _description = 'Šifarnik za Proces'
+
+    name = fields.Char(string="Naziv šifre", required=True)
+
+class Tags(models.Model):
+    _name = 'project.tag'
+    _description = 'Tagovi'
+
+    name = fields.Char(string="Naziv taga", required=True)
 
 
 

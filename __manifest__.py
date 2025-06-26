@@ -10,6 +10,7 @@
         'views/universal_request_views.xml',
         'views/request_type_views.xml',
         'views/code_book_data.xml',
+        'views/code_book_proces.xml',
         'views/universal_request_menus.xml',
 
     ],
