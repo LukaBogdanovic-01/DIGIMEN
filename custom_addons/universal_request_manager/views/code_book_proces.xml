@@ -1,0 +1,32 @@
+<odoo>
+    <record id="view_code_book_proces_form" model="ir.ui.view">
+        <field name="name">code.book.proces.form</field>
+        <field name="model">code.book.proces</field>
+        <field name="arch" type="xml">
+            <form string="Šifra">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_code_book_proces_tree" model="ir.ui.view">
+        <field name="name">code.book.tree</field>
+        <field name="model">code.book</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Šifre">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_code_book_proces" model="ir.actions.act_window">
+        <field name="name">Šifre</field>
+        <field name="res_model">code.book.proces</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

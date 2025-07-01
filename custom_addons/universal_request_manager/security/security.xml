@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="group_director" model="res.groups">
+            <field name="name">Direktor</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+        <record id="group_manager" model="res.groups">
+            <field name="name">Menadžer</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+        <record id="group_team" model="res.groups">
+            <field name="name">Član tima</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+    </data>
+</odoo>

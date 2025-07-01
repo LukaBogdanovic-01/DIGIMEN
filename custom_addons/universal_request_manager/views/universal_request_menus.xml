@@ -1,0 +1,8 @@
+<odoo>
+    <menuitem id="menu_universal_request_root" name="DIGIMEN" sequence="10"/>
+    
+    <menuitem id="menu_universal_request" name="Zahtjevi" parent="menu_universal_request_root" action="action_universal_request" sequence="10"/>
+    <menuitem id="menu_request_type" name="Šabloni zahtjeva" parent="menu_universal_request_root" action="action_request_type" sequence="20"/>
+    <menuitem id="menu_request_code_proces" name="Proces" parent="menu_universal_request_root" action="action_code_book_proces" sequence="30"/>
+    <menuitem id="menu_request_code" name="Ciljevi" parent="menu_universal_request_root" action="action_code_book" sequence="40"/>
+</odoo>
