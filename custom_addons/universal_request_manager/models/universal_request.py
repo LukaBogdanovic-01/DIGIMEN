@@ -29,8 +29,19 @@ class UniversalRequest(models.Model):
     goals_id = fields.Many2one('code.book', string="Ciljevi")
     attachment_file = fields.Binary(string="Dokument")
     attachment_filename = fields.Char(string="Naziv fajla")
-    crm_lead_id = fields.Many2one('crm.lead', string="Povezan CRM Lead")
+    attachment_preview_url = fields.Html(
+        string="Pregled dokumenta",
+        compute='_compute_attachment_preview_url',
+        sanitize=False
+    )
+    crm_lead_id = fields.Many2one('crm.lead', string="CRM Lead")
     show_approve_button = fields.Boolean(compute="_compute_show_approve_button")
+    show_request_fields = fields.Boolean(compute="_compute_show_custom_fields")
+
+    @api.depends('request_type_id')
+    def _compute_show_custom_fields(self):
+        for rec in self:
+            rec.show_custom_fields = bool(rec.request_type_id)
 
     @api.depends('status')
     def _compute_show_approve_button(self):
@@ -115,9 +126,22 @@ class UniversalRequest(models.Model):
         self.status = 'submitted'
 
 
+    def get_attachment_url(self):
+            for rec in self:
+                if rec.attachment_file:
+                    return f"/web/content?model=universal.request&id={rec.id}&field=attachment_file&filename_field=attachment_filename&download=true"
+                return ''
 
-
-
+    @api.depends('attachment_file', 'attachment_filename')
+    def _compute_attachment_preview_url(self):
+        for rec in self:
+            if rec.attachment_file:
+                rec.attachment_preview_url = (
+                    f'<a href="/web/content?model=universal.request&id={rec.id}&field=attachment_file&filename_field=attachment_filename" '
+                    f'target="_blank" style="color:#875A7B;text-decoration:underline;">📄 Otvori dokument</a>'
+                )
+            else:
+                rec.attachment_preview_url = ''
 
 
 
