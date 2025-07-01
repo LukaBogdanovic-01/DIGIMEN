@@ -29,6 +29,13 @@ class UniversalRequest(models.Model):
     goals_id = fields.Many2one('code.book', string="Ciljevi")
     attachment_file = fields.Binary(string="Dokument")
     attachment_filename = fields.Char(string="Naziv fajla")
+    crm_lead_id = fields.Many2one('crm.lead', string="Povezan CRM Lead")
+    show_approve_button = fields.Boolean(compute="_compute_show_approve_button")
+
+    @api.depends('status')
+    def _compute_show_approve_button(self):
+        for rec in self:
+            rec.show_approve_button = rec.status == 'approval'
 
 
 
@@ -44,32 +51,11 @@ class UniversalRequest(models.Model):
             rec.template_priority = dict(rec.request_type_id._fields['default_priority'].selection).get(rec.request_type_id.default_priority, '') if rec.request_type_id.default_priority else ''
             rec.template_assigned_user = rec.request_type_id.default_assigned_user_id.name if rec.request_type_id.default_assigned_user_id else ''
 
-
-
-    def _check_group(self, group_xml_id):
-        if not self.env.user.has_group(group_xml_id):
-            raise ValidationError("Nemate pravo da izvršite ovu radnju.")
         
     def _check_any_group(self, group_xml_ids):
         if not any(self.env.user.has_group(g) for g in group_xml_ids):
             raise ValidationError("Nemate pravo da izvršite ovu radnju.")
 
-
-
-    def action_approve(self):
-        self._check_any_group([
-            'universal_request_manager.group_manager',
-            'universal_request_manager.group_director'
-        ])
-        self.status = 'approved'
-
-    def action_done(self):
-        self._check_group('universal_request_manager.group_director')
-        self.status = 'archived'
-
-    def action_reject(self):
-        self._check_group('universal_request_manager.group_director')
-        self.status = 'rejected'
 
 
 
@@ -117,6 +103,17 @@ class UniversalRequest(models.Model):
     @api.model
     def _expand_status(self, values, domain, order=None):
         return [key for key, _ in self._get_all_statuses()]
+
+
+
+    def action_convert_to_task(self):
+        self._check_any_group([
+            'universal_request_manager.group_manager',
+            'universal_request_manager.group_director',
+            'base.group_system'
+        ])
+        self.status = 'submitted'
+
 
 
 

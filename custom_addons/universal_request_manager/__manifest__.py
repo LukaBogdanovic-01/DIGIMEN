@@ -3,7 +3,7 @@
     'version': '18.0.1.0.0',
     'summary': 'Digitalni menadžer',
     'license': 'LGPL-3',
-    'depends': ['project', 'base', 'mail', 'hr', 'auth_signup', 'web'],
+    'depends': ['project', 'base', 'mail', 'hr', 'auth_signup', 'web', 'crm'],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
